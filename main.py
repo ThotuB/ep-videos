@@ -134,7 +134,11 @@ def search_and_download(term: str):
     for page in range(FROM_PAGE, MAX_PAGES):
         response = get_search(search_key, page)
 
-        with open(f"./search/{search_file}-page_{page}.json", "wb") as sf:
+        file_path = Path(f"./search/{search_file}-page_{page}.json")
+
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(file_path, "wb") as sf:
             sf.write(response.content)
 
         try:
