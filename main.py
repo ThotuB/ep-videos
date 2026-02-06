@@ -4,7 +4,7 @@ import threading
 
 # USER CONSTS (can be changed)
 FROM_PAGE = 1
-COOKIE = "97060C7AC9A182EB50C06CB72D0F5154~000000000000000000000000000000~YAAQSBczF5MhxiWcAQAATt7WMh7lBl6GjtwzyTfq3imRkydO1zzQqGde8fY3lhz/yIyZNHx7nYlSAMUOORh3LI+SaYLXVHbJ55yuUNOmucHJ14KMwaSosb1+jhKVUtdD8V81W8DrmFsUoR2y6OhcSMhbwpMxuNQL2RJ5MbTcZGKInswb1WBEYJHRGUdNWCbb0/OjZOV4OJXvL8TnpdnavXwNeWvc4zaFoO09WoYy5u1Q5wnRu7o82AdjIQZGIG8wy0rBlYVA4uvK4NlsIMuFwFuILINJB1d4QoMFHG7y6KSbR/eiAtyh6XdzbISgc+20utzp2Int5BczTQKpDsL1KSpgOpWoxbzIJZbepM1Z8+GwTAlRQQZKeTsAzUiiOk8OysWaY/A4hZrVvdVnqAGNzCuUVcpZQ/2PHfTr0r+m86wEDDx02K/Q1tC6Oq4gw9maWDu94/EP0yxlm7cVKfSl3i22NR/nFi0=" 
+COOKIE = "97060C7AC9A182EB50C06CB72D0F5154~000000000000000000000000000000~YAAQSBczF5MhxiWcAQAATt7WMh7lBl6GjtwzyTfq3imRkydO1zzQqGde8fY3lhz/yIyZNHx7nYlSAMUOORh3LI+SaYLXVHbJ55yuUNOmucHJ14KMwaSosb1+jhKVUtdD8V81W8DrmFsUoR2y6OhcSMhbwpMxuNQL2RJ5MbTcZGKInswb1WBEYJHRGUdNWCbb0/OjZOV4OJXvL8TnpdnavXwNeWvc4zaFoO09WoYy5u1Q5wnRu7o82AdjIQZGIG8wy0rBlYVA4uvK4NlsIMuFwFuILINJB1d4QoMFHG7y6KSbR/eiAtyh6XdzbISgc+20utzp2Int5BczTQKpDsL1KSpgOpWoxbzIJZbepM1Z8+GwTAlRQQZKeTsAzUiiOk8OysWaY/A4hZrVvdVnqAGNzCuUVcpZQ/2PHfTr0r+m86wEDDx02K/Q1tC6Oq4gw9maWDu94/EP0yxlm7cVKfSl3i22NR/nFi0="
 FILE_SIZE_LIMIT = 50_000_000
 FORMAT = ".mp4"
 
@@ -110,6 +110,7 @@ def download_hit(hit, progress):
             total_size = int(video.headers.get("Content-Length", 0))
             if total_size > FILE_SIZE_LIMIT:
                 print(f"\033[33m[{progress}] SKIP TOO LARGE: {total_size:,}B\033[0m")
+                return
 
             print(f"[{progress}] size: {total_size}")
 
