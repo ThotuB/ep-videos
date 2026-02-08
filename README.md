@@ -23,7 +23,6 @@ change `USER CONSTS`:
 - `COOKIE`
     - mandatory, mentioned above
 - `EXTENSIONS`
-    - default: [".mp4", ".m4v", ".m4a", ".mov"]
     - add anything else to the list to try
     - don't forget `.` before extension
 - `FILE_SIZE_LIMIT`

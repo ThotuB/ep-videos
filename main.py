@@ -12,10 +12,19 @@ from requests.models import HTTPError
 COOKIE = "97060C7AC9A182EB50C06CB72D0F5154~000000000000000000000000000000~YAAQSBczF5MhxiWcAQAATt7WMh7lBl6GjtwzyTfq3imRkydO1zzQqGde8fY3lhz/yIyZNHx7nYlSAMUOORh3LI+SaYLXVHbJ55yuUNOmucHJ14KMwaSosb1+jhKVUtdD8V81W8DrmFsUoR2y6OhcSMhbwpMxuNQL2RJ5MbTcZGKInswb1WBEYJHRGUdNWCbb0/OjZOV4OJXvL8TnpdnavXwNeWvc4zaFoO09WoYy5u1Q5wnRu7o82AdjIQZGIG8wy0rBlYVA4uvK4NlsIMuFwFuILINJB1d4QoMFHG7y6KSbR/eiAtyh6XdzbISgc+20utzp2Int5BczTQKpDsL1KSpgOpWoxbzIJZbepM1Z8+GwTAlRQQZKeTsAzUiiOk8OysWaY/A4hZrVvdVnqAGNzCuUVcpZQ/2PHfTr0r+m86wEDDx02K/Q1tC6Oq4gw9maWDu94/EP0yxlm7cVKfSl3i22NR/nFi0="
 FILE_SIZE_LIMIT = 200_000_000
 EXTENSIONS = [
-    ".mp4",
-    ".mov",
-    ".m4v",
-    ".m4a",
+    # video
+    ".mp4",  # found
+    ".mov",  # found
+    ".m4v",  # found
+    ".flv",
+    ".vob",  # found
+    ".wmv",  # found
+    ".avi",  # found
+    ".amv",
+    ".qt",
+    # audio
+    ".mp3",  # found
+    ".m4a",  # found
 ]
 DOWNLOAD_THREADS = 3
 
@@ -255,7 +264,9 @@ def uncover_file(id: int, file: File):
     for ext in EXTENSIONS:
         found = download_file(file, ext, id)
         if found:
-            break
+            return id
+
+    print(f"{R}[{id}] NOTHING FOUND{X}")
 
     return id
 
