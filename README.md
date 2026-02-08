@@ -31,7 +31,7 @@ change `USER CONSTS`:
     - most videos are under the limit
     - may prevent being timed out
 - `DOWNLOAD_THREADS`
-    - default: 1
+    - default: 3
     - too many and you will get timed out pretty quick
     - preferably <5
 
