@@ -14,7 +14,7 @@
 
 ![cookie](resources/network.png)
 
-- open main.py
+- open consts.py
 - paste cookie in the `COOKIE` variable 
 
 ## optional
