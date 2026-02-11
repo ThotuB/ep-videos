@@ -6,9 +6,15 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import partial
 from requests.models import HTTPError
+from requests_ratelimiter import LimiterSession
+from pyrate_limiter import Duration, Rate, Limiter
 
 from src.consts import *
 from src.db import *
+
+rate = Rate(4, Duration.SECOND) # only make 4 requests per second
+limiter = Limiter(rate)
+session = LimiterSession(limiter=limiter)
 
 
 # search
@@ -19,7 +25,7 @@ def search_url(keys: str, page: int):
 def get_search(search: str, page: int):
     url = search_url(search, page)
 
-    return requests.get(
+    return session.get(
         url=url,
         headers=SEARCH_HEADERS,
         cookies={"ak_bmsc": COOKIE},
@@ -34,7 +40,7 @@ def search(term: str):
 
     get_search_with_key = partial(get_search, search_key)
 
-    with ThreadPoolExecutor(max_workers=10) as pool:
+    with ThreadPoolExecutor(max_workers=4) as pool:
         futures = {pool.submit(get_search_with_key, page): page for page in pages}
 
         for future in as_completed(futures):
@@ -96,7 +102,7 @@ Fn = Callable[[int, File, str], bool]
 def find_file(id: int, file: File, ext: str):
     uri = file.url.removesuffix(".pdf") + ext
 
-    with requests.head(
+    with session.head(
         url=uri, headers=NORMAL_HEADERS, cookies=COOKIES, timeout=(3, 10)
     ) as resp:
         if resp.status_code == 404:
@@ -129,7 +135,7 @@ def download_file(id: int, file: File, ext: str):
 
     uri = file.url.removesuffix(".pdf") + ext
 
-    with requests.get(
+    with session.get(
         url=uri,
         headers=NORMAL_HEADERS,
         cookies=COOKIES,
