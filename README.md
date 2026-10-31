@@ -14,7 +14,7 @@
 
 ![cookie](resources/network.png)
 
-- open main.py
+- open consts.py
 - paste cookie in the `COOKIE` variable 
 
 ## optional
@@ -36,12 +36,11 @@ change `USER CONSTS`:
 
 ## python and pip
 
-install python
+install python (3+)
 
 install packages
 ```
-pip install pydantic
-pip install functools
+pip install -r requirements.txt
 ```
 
 # database
@@ -77,4 +76,4 @@ you should be able to connect again after some time
 
 # run
 
-`python main.py`
+`python -m src.main`
